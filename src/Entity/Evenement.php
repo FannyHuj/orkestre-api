@@ -16,16 +16,16 @@ class Evenement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $description = null;
 
      #[ORM\Column (type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $evenementDate = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $location = null;
 
     #[ORM\Column(nullable: true)]
@@ -37,11 +37,11 @@ class Evenement
     #[ORM\Column(enumType: EvenementCategoryEnum::class)]
     private ?EvenementCategoryEnum $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'evenement')]
+    #[ORM\ManyToOne(inversedBy: 'organizer')]
     private ?User $organizer = null;
 
     /**
-     * @var Collection<int, User>
+     * @var Collection<int, User>=>
      */
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'evenements')]
     private Collection $participants;
@@ -177,7 +177,6 @@ class Evenement
 
         return $this;
     }
-
 
 
 }

@@ -27,11 +27,6 @@ class UserController extends AbstractController
         if ($request->files->has('picture')) {
             $hasPicture=true;
             $picture = $request->files->get('picture');
-            $logger->debug('Picture file received', [
-                'originalName' => $picture->getClientOriginalName(),
-                'mimeType' => $picture->getMimeType(),
-                'size' => $picture->getSize(),
-            ]);
 
             // Check if the file is an image and validate its size
             if (!in_array($picture->getMimeType(), ['image/jpeg', 'image/png', 'image/gif'])) {
@@ -39,23 +34,17 @@ class UserController extends AbstractController
             }
             //
             //if ($picture->getSize() > 8000000) { // 8 Mo
-             //   return $this->json(['error' => 'Image size exceeds limit'], 400);
+            //   return $this->json(['error' => 'Image size exceeds limit'], 400);
             //}
 
             // Rename the file to avoid conflicts
             $newFileName = uniqid() . '.' . $picture->guessExtension();
-            $logger->debug('New file name', [
-                'newFileName' => $newFileName,
-            ]);
            
             $destination = $this->getParameter('kernel.project_dir') . '/public/assets/images';
             
             $picture->move($destination, $newFileName);
           
-        } else {
-            $logger->warning('No picture file received in form-data');
-        }
-
+        } 
 
         $userDto = new UserDto();
         $userDto->setFirstName($request->request->get('firstName'));
@@ -141,6 +130,15 @@ class UserController extends AbstractController
         }
 
         return $this->json($dtoList, 200, [], ['json_encode_options' => JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES]);
+    }
+
+    #[Route('/api/deleteProfile/{id}', methods: ['DELETE'])]
+    public function deleteProfile($id,UserRepository $userRepository): JsonResponse {
+
+        $user = $userRepository->findUserById($id);
+        $userRepository->deleteProfile($user);
+
+        return $this->json(['status' => 'success']);
     }
 
      

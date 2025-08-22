@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Entity\UserEvenement;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -19,16 +18,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $firstName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 250, nullable: true)]
     private ?string $picture = null;
 
      /**
@@ -37,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $password = null; 
 
     #[ORM\Column(nullable: true)]
@@ -46,14 +45,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Evenement>
      */
-    #[ORM\ManyToMany(targetEntity: Evenement::class, mappedBy: 'participants')]
+    #[ORM\ManyToMany(targetEntity: Evenement::class, mappedBy: 'participants', cascade: ['remove'])]
     private Collection $evenements;
 
- 
+    /**
+     * @var Collection<int, Evenement>
+     */
+    #[ORM\OneToMany(targetEntity: Evenement::class, mappedBy: 'organizer')]
+    private Collection $organizer;
+
 
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
+        $this->organizer = new ArrayCollection();
     }
 
 
@@ -205,6 +210,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->evenements->removeElement($evenement)) {
             $evenement->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Evenement>
+     */
+    public function getOrganizer(): Collection
+    {
+        return $this->organizer;
+    }
+
+    public function addOrganizer(Evenement $organizer): static
+    {
+        if (!$this->organizer->contains($organizer)) {
+            $this->organizer->add($organizer);
+            $organizer->setOrganizer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganizer(Evenement $organizer): static
+    {
+        if ($this->organizer->removeElement($organizer)) {
+            // set the owning side to null (unless already changed)
+            if ($organizer->getOrganizer() === $this) {
+                $organizer->setOrganizer(null);
+            }
         }
 
         return $this;

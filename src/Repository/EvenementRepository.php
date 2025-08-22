@@ -6,8 +6,6 @@ use App\Entity\Evenement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Dto\EvenementFiltersDto;
-use App\Entity\User;
-use App\Entity\UserEvenement;
 
 /**
  * @extends ServiceEntityRepository<Evenement>

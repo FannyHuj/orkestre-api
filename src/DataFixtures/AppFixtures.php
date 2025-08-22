@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
         $evenement1 = new Evenement();
         $evenement1->setTitle("Concert de Jazz");
         $evenement1->setDescription("Un concert de jazz avec des musiciens locaux.");
-        $evenement1->setEvenementDate(new \DateTime('2023-11-01 20:00:00'));
+        $evenement1->setEvenementDate(new \DateTime('2025-09-18 20:00:00'));
         $evenement1->setLocation("Salle de Concert, Paris");
         $evenement1->setMaxCapacity(100);
         $evenement1->setPrice(20);
@@ -100,7 +100,7 @@ class AppFixtures extends Fixture
         $evenement2 = new Evenement();
         $evenement2->setTitle("Exposition d'Art");
         $evenement2->setDescription("Une exposition d'art contemporain avec des artistes émergents.");
-        $evenement2->setEvenementDate(new \DateTime('2023-11-05 10:00:00'));
+        $evenement2->setEvenementDate(new \DateTime('2025-10-05 10:00:00'));
         $evenement2->setLocation("Galerie d'Art, Paris");
         $evenement2->setMaxCapacity(50);
         $evenement2->setPrice(10);
@@ -113,7 +113,7 @@ class AppFixtures extends Fixture
         $evenement3 = new Evenement();
         $evenement3->setTitle("Atelier de Cuisine");
         $evenement3->setDescription("Un atelier de cuisine italienne pour apprendre à faire des pâtes fraîches.");
-        $evenement3->setEvenementDate(new \DateTime('2023-11-10 15:00:00'));
+        $evenement3->setEvenementDate(new \DateTime('2025-11-10 15:00:00'));
         $evenement3->setLocation("Cuisine Collective, Paris");
         $evenement3->setMaxCapacity(20);
         $evenement3->setPrice(30);
@@ -125,7 +125,7 @@ class AppFixtures extends Fixture
         $evenement4 = new Evenement();  
         $evenement4->setTitle("Marathon de Paris");
         $evenement4->setDescription("Un marathon à travers les rues de Paris, ouvert à tous les niveaux.");
-        $evenement4->setEvenementDate(new \DateTime('2023-11-15 08:00:00'));
+        $evenement4->setEvenementDate(new \DateTime('2025-09-21 08:00:00'));
         $evenement4->setLocation("Paris, France");
         $evenement4->setMaxCapacity(5000);
         $evenement4->setPrice(50);
@@ -136,7 +136,7 @@ class AppFixtures extends Fixture
         $evenement5 = new Evenement();
         $evenement5->setTitle("Conférence sur l'Intelligence Artificielle");
         $evenement5->setDescription("Une conférence sur les dernières avancées en intelligence artificielle.");
-        $evenement5->setEvenementDate(new \DateTime('2023-11-20 14:00:00'));
+        $evenement5->setEvenementDate(new \DateTime('2025-09-20 14:00:00'));
         $evenement5->setLocation("Auditorium, Paris");
         $evenement5->setMaxCapacity(200);
         $evenement5->setPrice(15);
